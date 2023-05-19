@@ -2,9 +2,16 @@ import React from 'react'
 import MenuItem from './MenuItem'
 import { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
+
 import axios from 'axios'
 import { Modal } from 'bootstrap'
 const baseURL = "http://localhost:8000"
+const header ={
+  headers: {
+      Authorization: `Bearer ${localStorage.getItem(`token`)}`
+  }
+}
+
 export default function Menu() {
   /**define state for store menu */
   const [menus, setMenus] = useState([])
@@ -27,7 +34,7 @@ export default function Menu() {
   async function getMenu() {
     try {
       let url = `${baseURL}/menu`
-      let { data } = await axios.get(url)
+      let { data } = await axios.get(url, header)
       setMenus(data.data)
 
     } catch (error) {
@@ -41,7 +48,7 @@ export default function Menu() {
       let dataSearch = {
         keyword: keyword
       }
-      let { data } = await axios.post(url, dataSearch)
+      let { data } = await axios.post(url, dataSearch, header)
       setMenus(data.data)
      }
 
@@ -76,7 +83,7 @@ export default function Menu() {
     try {
       if (window.confirm(`Apakah anda yakin ingin menghapus ${menu.nama_menu}?`)) {
         let url = `${baseURL}/menu/${menu.id_menu}`
-        axios.delete(url)
+        axios.delete(url, header)
         .then(result =>{
           if (result.data.status == true) {
             window.alert(result.data.message)
@@ -114,7 +121,7 @@ export default function Menu() {
         /**send to backend */
         let url = `${baseURL}/menu/${id_menu}`
         let result = await axios.put(
-          url, form
+          url, form, header
         )
         if (result.data.status == true) {
           /**refresh data menu */
@@ -133,7 +140,7 @@ export default function Menu() {
         /**send to backend */
         let url = `${baseURL}/menu`
         let result = await axios.post(
-          url, form
+          url, form, header
         )
         if (result.data.status == true) {
           /**refresh data menu */

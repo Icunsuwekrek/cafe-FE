@@ -47,8 +47,8 @@ class Navbar extends React.Component {
                                 </li>
 
                                 <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="">
-                                        Services
+                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/transaksi">
+                                        Transaksi
                                     </a>
                                 </li>
 
