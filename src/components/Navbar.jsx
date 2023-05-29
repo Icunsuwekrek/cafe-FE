@@ -1,10 +1,23 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-class Navbar extends React.Component {
-    render() {
+import React from 'react'
+
+const Navbar = () => {
+    const [role, setRole] = useState();
+   
+    const handleLogout = item => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        window.location.href="/login"
+    }
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"))
+        setRole(user.role);
+    }, [])
+
         return (
             <header aria-label="Site Header" class="bg-stone-300">
                 <div
@@ -28,41 +41,82 @@ class Navbar extends React.Component {
                     <div class="flex flex-1 items-center justify-end md:justify-between ">
                         <nav aria-label="Site Nav" class="hidden md:block">
                             <ul class="flex items-center gap-6 text-sm my-10">
-                                <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/">
-                                        Home
-                                    </a>
-                                </li>
+                                {role === "admin" && (
+                                    <>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/">
+                                            Home
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="">
-                                        Careers
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/meja">
+                                            Meja
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="">
-                                        History
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/user">
+                                            User
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/transaksi">
-                                        Transaksi
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/transaksi">
+                                            Transaksi
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/menu">
-                                        Menu
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/menu">
+                                            Menu
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/blog">
-                                        Blog
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/blog">
+                                            Blog
+                                        </a>
+                                    </li>
+                                    </>
+                                )}
+
+                                {role === "kasir" && (
+                                    <>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/transaksi">
+                                            Transaksi
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/menu">
+                                            Menu
+                                        </a>
+                                    </li>
+                                    </>
+                                )}
+                                {role === "manajer" &&(
+                                    <>
+                                      <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/transaksi">
+                                            Transaksi
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/menu">
+                                            Menu
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-gray-500 transition hover:text-gray-500/75 text-lg" href="/user">
+                                            User
+                                        </a>
+                                    </li>
+                                    </>
+                                )}
+                                
                             </ul>
                         </nav>
 
@@ -77,9 +131,10 @@ class Navbar extends React.Component {
 
                                 <a
                                     class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                                    href="/"
+                                    href="#"
+                                    onClick={handleLogout}
                                 >
-                                    Register
+                                    Log out
                                 </a>
                             </div>
 
@@ -108,6 +163,6 @@ class Navbar extends React.Component {
             </header>
 
         )
-    }
 }
-export default Navbar;
+
+export default Navbar

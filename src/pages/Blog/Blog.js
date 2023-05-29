@@ -6,7 +6,7 @@ export default function Blog (){
 
         <>
         <Navbar/>
-        <section className="dark:bg-gray-400 dark:text-gray-100">
+        <section className="dark:bg-stone-400 dark:text-gray-100">
 	<div className="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
 		<a rel="noopener noreferrer" href="#" className="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-900">
 			<img src="https://source.unsplash.com/random/480x360" alt="" className="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500" />
