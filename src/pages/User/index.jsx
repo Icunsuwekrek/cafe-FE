@@ -19,6 +19,8 @@ const User = () => {
   const [isEdit, setIsEdit] = useState(true)
   const [modal, setModal] = useState(null)
   const [user, setUser] = useState([])
+  const [userRole, setUserRole] = useState()
+
 
 
   const getUser = () => {
@@ -93,6 +95,12 @@ const dropUser =(item)=>{
 
 }
 
+
+useEffect(() => {
+  const userRole =localStorage.getItem('user',role)
+}, [])
+
+
   useEffect(() => {
     getUser()
     setModal(new Modal('#modalUser'))
@@ -145,12 +153,14 @@ const dropUser =(item)=>{
 
                     <td className="whitespace-nowrap px-4 py-2">
                       <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
-                        <button class="inline-block rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative"
-                        onClick={() => editUser(item)}
-                        >
-                          Edit
-                        </button>
-
+                        
+                          <button class="inline-block rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative"
+                          onClick={() => editUser(item)}
+                          >
+                            Edit
+                          </button>
+              
+                     
                         <button class="inline-block rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative">
                           View
                         </button>
